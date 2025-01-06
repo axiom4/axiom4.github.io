@@ -1,5 +1,7 @@
 ## Welcome
-<img align="right" src="https://github.com/axiom4/axiom4/blob/main/avatar.jpeg">
+<img align="right" src="https://github.com/axiom4/axiom4/blob/main/avatar.jpeg?raw=true">
+
+<div align="justify">
 
 > My name is Riccardo, and I work in the IT field, where I have gained extensive experience in both technical and management roles. I specialize in designing and implementing IT infrastructures, working on both cloud and on-premise environments to deliver scalable and resilient solutions. I also focus on software integration, ensuring seamless communication between different systems to create efficient and well-coordinated environments.
 > 
@@ -8,10 +10,11 @@
 > Another area of interest is cybersecurity: I work to ensure that infrastructures are secure and compliant with regulations, adopting best practices and addressing compliance challenges in an ever-evolving technological landscape.
 >
 > Outside of work, I am passionate about wild life photography, striving to capture the beauty and essence of nature. Additionally, I enjoy tackling CTF (Capture The Flag) challenges, combining my passion for cybersecurity with the thrill of solving complex and stimulating problems.
+</div>
 
 ### My Skills
 
-<div align="left">
+<div align="justify">
 <span><img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue"></span></span>
 <span><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"></span>
 <span><img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white"></span>
@@ -75,6 +78,3 @@
 <span><img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white"></span>
 <span><img src="https://img.shields.io/badge/OpenWrt-00B5E2?style=for-the-badge&logo=OpenWrt&logoColor=white"></span>
 <span><img src="https://img.shields.io/badge/Raspberry%20Pi-A22846?style=for-the-badge&logo=Raspberry%20Pi&logoColor=white"></span>
-</div>
-
-
