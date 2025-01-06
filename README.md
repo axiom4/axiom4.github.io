@@ -8,7 +8,7 @@ Another area of interest is cybersecurity: I work to ensure that infrastructures
 Outside of work, I am passionate about wild life photography, striving to capture the beauty and essence of nature. Additionally, I enjoy tackling CTF (Capture The Flag) challenges, combining my passion for cybersecurity with the thrill of solving complex and stimulating problems.
 
 ### My Skills
-<img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue">
+<img align="left" src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue">
 <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white">
 <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white">
 <img src="https://img.shields.io/badge/Perl-39457E?style=for-the-badge&logo=perl&logoColor=white">
