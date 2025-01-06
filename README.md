@@ -9,7 +9,7 @@ Outside of work, I am passionate about wild life photography, striving to captur
 
 ### My Skills
 
-<div align="center">
+<div align="left">
 <span><img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue"></span></span>
 <span><img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"></span>
 <span><img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white"></span>
