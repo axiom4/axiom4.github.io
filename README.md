@@ -1,5 +1,5 @@
 ## Hi there 👋
-<img align="right" width="100" height="100" src="https://github.com/axiom4/axiom4/blob/main/avatar.jpeg">
+<img align="right" src="https://github.com/axiom4/axiom4/blob/main/avatar.jpeg">
 
 My name is Riccardo, and I work in the IT field, where I have gained extensive experience in both technical and management roles. I specialize in designing and implementing IT infrastructures, working on both cloud and on-premise environments to deliver scalable and resilient solutions. I also focus on software integration, ensuring seamless communication between different systems to create efficient and well-coordinated environments.
 
