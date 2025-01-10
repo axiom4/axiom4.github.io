@@ -1,4 +1,4 @@
-## Install Virtual  Machines on KVM
+## Install Virtual Machines on KVM
 
 ```bash
 # virt-install --name k8s-control --os-variant ubuntu23.10 --vcpus 2 --memory 2048 \
@@ -7,38 +7,37 @@
 --extra-args='console=ttyS0,115200n8 --- console=ttyS0,115200n8' --debug
 ```
 
-![Start VM Installation](/media/posts/2/kb_01.webp)
+![Start VM Installation](/media/images/kubernetes/kb_01.webp)
 
-![Select Language](/media/posts/2/kb_02.webp)
+![Select Language](/media/images/kubernetes/kb_02.webp)
 
-![Keyboard Configuration](/media/posts/2/kb_03.webp)
+![Keyboard Configuration](/media/images/kubernetes/kb_03.webp)
 
-![Choose Type of install](/media/posts/2/kb_04.webp)
+![Choose Type of install](/media/images/kubernetes/kb_04.webp)
 
-![Network Connections](/media/posts/2/kb_05.webp)
+![Network Connections](/media/images/kubernetes/kb_05.webp)
 
-![Configure Proxy](/media/posts/2/kb_06.webp)
+![Configure Proxy](/media/images/kubernetes/kb_06.webp)
 
-![Configure Ubuntu Archive Mirror](/media/posts/2/kb_07.webp)
+![Configure Ubuntu Archive Mirror](/media/images/kubernetes/kb_07.webp)
 
-![Guided storage Configuration](/media/posts/2/kb_08.webp)
+![Guided storage Configuration](/media/images/kubernetes/kb_08.webp)
 
-![Storage Configuration](/media/posts/2/kb_09.webp)
+![Storage Configuration](/media/images/kubernetes/kb_09.webp)
 
-![Confirm Storage Configuration](/media/posts/2/kb_10.webp)
+![Confirm Storage Configuration](/media/images/kubernetes/kb_10.webp)
 
-![Profile Setup](/media/posts/2/kb_11.webp)
+![Profile Setup](/media/images/kubernetes/kb_11.webp)
 
-![SSH Setup](/media/posts/2/kb_12.webp)
+![SSH Setup](/media/images/kubernetes/kb_12.webp)
 
-![Featured Server Snaps](/media/posts/2/kb_13.webp)
+![Featured Server Snaps](/media/images/kubernetes/kb_13.webp)
 
-![Install Complete](/media/posts/2/kb_14.webp)
+![Install Complete](/media/images/kubernetes/kb_14.webp)
 
-![Reboot](/media/posts/2/kb_15.webp)
+![Reboot](/media/images/kubernetes/kb_15.webp)
 
-![Login](/media/posts/2/kb_16.webp)
-
+![Login](/media/images/kubernetes/kb_16.webp)
 
 ```bash
 # ssh [user]@[ip]
@@ -288,7 +287,6 @@ kube-system   kube-proxy-9qxnc                      1/1     Running   0         
 kube-system   kube-scheduler-k8s-control            1/1     Running   0          10m
 ```
 
-
 ## Install kubernetes worker-node
 
 ```bash
@@ -312,7 +310,6 @@ command-not-found apt-transport-https ca-certificates curl net-tools iputils-pin
 # sudo swapoff -a
 # sudo sed -i '/swap/ s/^/#/' /etc/fstab
 ```
-
 
 ```bash
 # cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
@@ -402,6 +399,7 @@ kube-system   kube-scheduler-k8s-control            1/1     Running   1 (3m42s a
 ```
 
 ## Install kubernetes dashboard
+
 ```bash
 # kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
 namespace/kubernetes-dashboard created
@@ -443,11 +441,10 @@ roleRef:
   kind: ClusterRole
   name: cluster-admin
 subjects:
-- kind: ServiceAccount
-  name: admin-user
-  namespace: kubernetes-dashboard
+  - kind: ServiceAccount
+    name: admin-user
+    namespace: kubernetes-dashboard
 ```
-
 
 ```bash
 # kubectl apply -f role.yaml
@@ -464,9 +461,9 @@ Starting to serve on 127.0.0.1:8001
 
 [Kubernetes Dashboard](http://127.0.0.1:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/workloads?namespace=default "Kubernetes Dashboard")
 
-![Kubernetes Dashboard Login](/media/posts/2/kb_17.webp)
+![Kubernetes Dashboard Login](/media/images/kubernetes/kb_17.webp)
 
-![Kubernetes Dashboard Interface](/media/posts/2/kb_18.webp)
+![Kubernetes Dashboard Interface](/media/images/kubernetes/kb_18.webp)
 
 ```bash
 # kubectl get pods -A -o wide
