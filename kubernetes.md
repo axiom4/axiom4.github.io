@@ -62,7 +62,7 @@ sudo timedatectl set-timezone Europe/Rome
 ```
 
 ```sh
-sudo apt -y install docker.io containerd vim sh-completion \
+sudo apt -y install docker.io containerd vim bash-completion \
 command-not-found apt-transport-https ca-certificates curl net-tools iputils-ping
 ```
 
@@ -106,7 +106,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
 ```
 
 ```sh
-source <(kubectl completion sh)
+source <(kubectl completion bash)
 alias k=kubectl
 complete -o default -F __start_kubectl k
 ```
@@ -302,7 +302,7 @@ sudo timedatectl set-timezone Europe/Rome
 ```
 
 ```sh
-sudo apt -y install docker.io containerd vim sh-completion \
+sudo apt -y install docker.io containerd vim bash-completion \
 command-not-found apt-transport-https ca-certificates curl net-tools iputils-ping
 ```
 
@@ -341,7 +341,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
 ```
 
 ```sh
-source <(kubectl completion sh)
+source <(kubectl completion bash)
 alias k=kubectl
 complete -o default -F __start_kubectl k
 ```
