@@ -16,7 +16,7 @@
 
 ### Posts
 
-- [Kubernetes](kubernetes.md)
+- [Kubernetes](/posts/kubernetes.md)
 
 ### My Skills
 
