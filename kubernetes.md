@@ -1,7 +1,7 @@
 ## Install Virtual Machines on KVM
 
 ```bash
-# virt-install --name k8s-control --os-variant ubuntu23.10 --vcpus 2 --memory 2048 \
+virt-install --name k8s-control --os-variant ubuntu23.10 --vcpus 2 --memory 2048 \
 --location /var/lib/libvirt/images/ubuntu-23.10-live-server-amd64.iso,kernel=casper/vmlinuz,initrd=casper/initrd  \
 --network bridge=br0,model=virtio --disk size=50 --graphics none \
 --extra-args='console=ttyS0,115200n8 --- console=ttyS0,115200n8' --debug
@@ -40,7 +40,7 @@
 ![Login](/media/images/kubernetes/kb_16.webp)
 
 ```bash
-# ssh [user]@[ip]
+ssh [user]@[ip]
 Welcome to Ubuntu 23.10 (GNU/Linux 6.5.0-10-generic x86_64)
 
  * Documentation:  https://help.ubuntu.com
@@ -57,52 +57,52 @@ Last login: Tue Oct 31 17:19:02 2023
 ## Install kubernetes control-plane
 
 ```bash
-# sudo timedatectl set-timezone Europe/Rome
+sudo timedatectl set-timezone Europe/Rome
 [sudo] password for axiom:
 ```
 
 ```bash
-# sudo apt -y install docker.io containerd vim bash-completion \
+sudo apt -y install docker.io containerd vim bash-completion \
 command-not-found apt-transport-https ca-certificates curl net-tools iputils-ping
 ```
 
 ```bash
-# sudo swapoff -a
-# sudo sed -i '/swap/ s/^/#/' /etc/fstab
+sudo swapoff -a
+sudo sed -i '/swap/ s/^/#/' /etc/fstab
 ```
 
 ```bash
-# cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
 br_netfilter
 EOF
 
-# sudo modprobe overlay
-# sudo modprobe br_netfilter
+sudo modprobe overlay
+sudo modprobe br_netfilter
 
 # sysctl params required by setup, params persist across reboots
-# cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
 EOF
 
 # Apply sysctl params without reboot
-# sudo sysctl --system
+sudo sysctl --system
 ```
 
 ```bash
-# sudo systemctl stop apparmor.service
-# sudo systemctl disable apparmor.service
+sudo systemctl stop apparmor.service
+sudo systemctl disable apparmor.service
 ```
 
 ```bash
-# curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg \
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg \
 --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-# echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
-# sudo apt-get update
-# sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
 ```
 
 ```bash
@@ -112,21 +112,21 @@ complete -o default -F __start_kubectl k
 ```
 
 ```bash
-# sudo mkdir /etc/containerd
-# sudo sh -c "containerd config default > /etc/containerd/config.toml"
-# sudo sed -i 's/ SystemdCgroup = false/ SystemdCgroup = true/' /etc/containerd/config.toml
+sudo mkdir /etc/containerd
+sudo sh -c "containerd config default > /etc/containerd/config.toml"
+sudo sed -i 's/ SystemdCgroup = false/ SystemdCgroup = true/' /etc/containerd/config.toml
 ```
 
 ```bash
-# sudo systemctl enable kubelet.service
-# sudo systemctl daemon-reload
-# sudo systemctl restart docker
-# sudo systemctl restart containerd
-# sudo systemctl restart kubelet
+sudo systemctl enable kubelet.service
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+sudo systemctl restart containerd
+sudo systemctl restart kubelet
 ```
 
 ```bash
-# sudo kubeadm config images pull
+sudo kubeadm config images pull
 [config/images] Pulled registry.k8s.io/kube-apiserver:v1.28.3
 [config/images] Pulled registry.k8s.io/kube-controller-manager:v1.28.3
 [config/images] Pulled registry.k8s.io/kube-scheduler:v1.28.3
@@ -137,7 +137,7 @@ complete -o default -F __start_kubectl k
 ```
 
 ```bash
-# sudo kubeadm init --apiserver-advertise-address=192.168.122.10 \
+sudo kubeadm init --apiserver-advertise-address=192.168.122.10 \
 --pod-network-cidr=10.244.0.0/16
 [init] Using Kubernetes version: v1.28.3
 [preflight] Running pre-flight checks
@@ -214,17 +214,17 @@ kubeadm join 192.168.122.10:6443 --token ootk3y.17wh21twoay3e22o \
 ```
 
 ```bash
-# mkdir -p $HOME/.kube
-# sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-# sudo chown $(id -u):$(id -g) $HOME/.kube/config
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 ```bash
-# kubectl get nodes
+kubectl get nodes
 NAME          STATUS     ROLES           AGE   VERSION
 k8s-control   NotReady   control-plane   89s   v1.28.3
 
-# kubectl get pods -A
+kubectl get pods -A
 NAMESPACE     NAME                                  READY   STATUS    RESTARTS   AGE
 kube-system   coredns-5dd5756b68-6c2jd              0/1     Pending   0          86s
 kube-system   coredns-5dd5756b68-rwtvp              0/1     Pending   0          86s
@@ -246,12 +246,12 @@ rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
 ```
 
 ```bash
-# cilium install --version 1.14.3
+cilium install --version 1.14.3
   Using Cilium version 1.14.3
  Auto-detected cluster name: kubernetes
  Auto-detected kube-proxy has been installed
 
-# cilium status --wait
+cilium status --wait
     /¯¯\
  /¯¯\__/¯¯\    Cilium:             OK
  \__/¯¯\__/    Operator:           OK
@@ -270,11 +270,11 @@ Image versions         cilium-operator    quay.io/cilium/operator-generic:v1.14.
 ```
 
 ```bash
-# kubectl get nodes
+kubectl get nodes
 NAME          STATUS   ROLES           AGE   VERSION
 k8s-control   Ready    control-plane   10m   v1.28.3
 
-# kubectl get pods -A
+kubectl get pods -A
 NAMESPACE     NAME                                  READY   STATUS    RESTARTS   AGE
 kube-system   cilium-b5jqw                          1/1     Running   0          66s
 kube-system   cilium-operator-866755c479-hk5nr      1/1     Running   0          66s
@@ -290,54 +290,54 @@ kube-system   kube-scheduler-k8s-control            1/1     Running   0         
 ## Install kubernetes worker-node
 
 ```bash
-# virt-install --name k8s-worker1 --os-variant ubuntu23.10 --vcpus 2 --memory 2048 \
+virt-install --name k8s-worker1 --os-variant ubuntu23.10 --vcpus 2 --memory 2048 \
 --location /var/lib/libvirt/images/ubuntu-23.10-live-server-amd64.iso,kernel=casper/vmlinuz,initrd=casper/initrd \
 --network bridge=virbr0,model=virtio --disk size=50 --graphics none \
 --extra-args='console=ttyS0,115200n8 --- console=ttyS0,115200n8' --debug
 ```
 
 ```bash
-# sudo timedatectl set-timezone Europe/Rome
+sudo timedatectl set-timezone Europe/Rome
 [sudo] password for axiom:
 ```
 
 ```bash
-# sudo apt -y install docker.io containerd vim bash-completion \
+sudo apt -y install docker.io containerd vim bash-completion \
 command-not-found apt-transport-https ca-certificates curl net-tools iputils-ping
 ```
 
 ```bash
-# sudo swapoff -a
-# sudo sed -i '/swap/ s/^/#/' /etc/fstab
+sudo swapoff -a
+sudo sed -i '/swap/ s/^/#/' /etc/fstab
 ```
 
 ```bash
-# cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
 br_netfilter
 EOF
 
-# sudo modprobe overlay
-# sudo modprobe br_netfilter
+sudo modprobe overlay
+sudo modprobe br_netfilter
 
 # sysctl params required by setup, params persist across reboots
-# cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
 EOF
 
 # Apply sysctl params without reboot
-# sudo sysctl --system
+sudo sysctl --system
 ```
 
 ```bash
-# curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg \
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg \
 --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-# echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
-# sudo apt-get update
-# sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
 ```
 
 ```bash
@@ -347,21 +347,21 @@ complete -o default -F __start_kubectl k
 ```
 
 ```bash
-# sudo mkdir /etc/containerd
-# sudo sh -c "containerd config default > /etc/containerd/config.toml"
-# sudo sed -i 's/ SystemdCgroup = false/ SystemdCgroup = true/' /etc/containerd/config.toml
+sudo mkdir /etc/containerd
+sudo sh -c "containerd config default > /etc/containerd/config.toml"
+sudo sed -i 's/ SystemdCgroup = false/ SystemdCgroup = true/' /etc/containerd/config.toml
 ```
 
 ```bash
-# sudo systemctl enable kubelet.service
-# sudo systemctl daemon-reload
-# sudo systemctl restart docker
-# sudo systemctl restart containerd
-# sudo systemctl restart kubelet
+sudo systemctl enable kubelet.service
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+sudo systemctl restart containerd
+sudo systemctl restart kubelet
 ```
 
 ```bash
-# sudo kubeadm join 192.168.122.10:6443 --token ootk3y.17wh21twoay3e22o      --discovery-token-ca-cert-hash sha256:002ca6044627972a8a7d0dbb496d5ab17654e2a785b3115956a909a052321847
+sudo kubeadm join 192.168.122.10:6443 --token ootk3y.17wh21twoay3e22o      --discovery-token-ca-cert-hash sha256:002ca6044627972a8a7d0dbb496d5ab17654e2a785b3115956a909a052321847
 [preflight] Running pre-flight checks
 [preflight] Reading configuration from the cluster...
 [preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
@@ -378,12 +378,12 @@ Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
 ```
 
 ```bash
-# kubectl get nodes
+kubectl get nodes
 NAME          STATUS   ROLES           AGE   VERSION
 k8s-control   Ready    control-plane   69m   v1.28.3
 k8s-worker1   Ready    <none>          73s   v1.28.3
 
-# kubectl get pods -A
+kubectl get pods -A
 NAMESPACE     NAME                                  READY   STATUS    RESTARTS        AGE
 kube-system   cilium-b5jqw                          1/1     Running   1 (3m42s ago)   60m
 kube-system   cilium-lz5ch                          1/1     Running   0               83s
@@ -401,7 +401,7 @@ kube-system   kube-scheduler-k8s-control            1/1     Running   1 (3m42s a
 ## Install kubernetes dashboard
 
 ```bash
-# kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
 namespace/kubernetes-dashboard created
 serviceaccount/kubernetes-dashboard created
 service/kubernetes-dashboard created
@@ -427,7 +427,7 @@ metadata:
 ```
 
 ```bash
-# kubectl apply -f user.yaml
+kubectl apply -f user.yaml
 serviceaccount/admin-user created
 ```
 
@@ -447,15 +447,15 @@ subjects:
 ```
 
 ```bash
-# kubectl apply -f role.yaml
+kubectl apply -f role.yaml
 clusterrolebinding.rbac.authorization.k8s.io/admin-user created
 ```
 
 ```bash
-# ssh -L 8001:127.0.0.1:8001 axiom@k8s-control
-# kubectl -n kubernetes-dashboard create token admin-user
+ssh -L 8001:127.0.0.1:8001 axiom@k8s-control
+kubectl -n kubernetes-dashboard create token admin-user
 eyJhbGciOiJSUzI1NiIsImtpZCI6I...DC3aIabINX6gP5-Tuuw2svnV6NYQ
-# kubectl proxy
+kubectl proxy
 Starting to serve on 127.0.0.1:8001
 ```
 
@@ -466,7 +466,7 @@ Starting to serve on 127.0.0.1:8001
 ![Kubernetes Dashboard Interface](/media/images/kubernetes/kb_18.webp)
 
 ```bash
-# kubectl get pods -A -o wide
+kubectl get pods -A -o wide
 NAMESPACE              NAME                                         READY   STATUS    RESTARTS     AGE   IP             NODE          NOMINATED NODE   READINESS GATES
 kube-system            cilium-6jrhq                                 1/1     Running   0            8h    192.168.1.52   k8s-worker1   <none>           <none>
 kube-system            cilium-gpw22                                 1/1     Running   0            8h    192.168.1.53   k8s-worker2   <none>           <none>
