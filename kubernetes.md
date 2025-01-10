@@ -7,9 +7,9 @@ virt-install --name k8s-control --os-variant ubuntu23.10 --vcpus 2 --memory 2048
 --extra-args='console=ttyS0,115200n8 --- console=ttyS0,115200n8' --debug
 ```
 
-![Start VM Installation](/media/images/kubernetes/kb_01.webp | width=320)
+![Start VM Installation](/media/images/kubernetes/kb_01.webp)
 
-![Select Language](/media/images/kubernetes/kb_02.webp | width=320)
+![Select Language](/media/images/kubernetes/kb_02.webp)
 
 ![Keyboard Configuration](/media/images/kubernetes/kb_03.webp)
 
